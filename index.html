@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+    getComputerChoice = function (){
+        const choices = ["rock", "paper", "scissors"];
+        const pick = Math.floor(Math.random() * choices.length);
+        return(pick, choices[pick]);
+    }
+
+  
+
+    playGame = function() {
+
+        let userSelection = prompt("Rock, paper, or scissors?");
+        const playerSelection = userSelection.toLowerCase();
+        const computerSelection = getComputerChoice();
+
+        if (computerSelection == "rock" && playerSelection == "rock") {
+            return "Tie, try again";
+        }
+        else if (computerSelection == "rock" && playerSelection =="paper") {
+            return "You win!";
+        }
+        else if (computerSelection == "rock" && playerSelection == "scissors") {
+            return "Computer wins";
+        }
+        else if (computerSelection == "paper" && playerSelection == "rock"){
+           return "Computer wins";
+        }
+        else if (computerSelection == "paper" && playerSelection == "paper"){
+            return "Tie, try again";
+        }
+        else if (computerSelection == "paper" && playerSelection == "scissors"){
+            return "You win!";
+        }
+        else if  (computerSelection == "scissors" && playerSelection == "rock"){
+            return "You win!";
+        }
+        else if (computerSelection == "scissors" && playerSelection == "paper"){
+            return "Computer wins";
+        }
+        else if (computerSelection =="scissors" && playerSelection == "scissors"){
+            return "Tie, try again"
+        }
+        else console.log("error");
+
+    }
+
+    game = function () {
+        let playerScore = 0;
+        let computerScore = 0;
+        let tieCount = 0;
+
+        
+        i = 0
+        do {
+            const winner = playGame();
+
+            if (winner == "Computer wins") {
+                (computerScore ++);
+            }
+            else if (winner == "You win!"){
+                (playerScore ++);
+            }
+            else if (winner == "Tie, try again") {
+                (tieCount ++);
+            }
+            else {console.log("error")};
+
+            i++;
+        } 
+        while (i < 5);
+
+        console.log("your score:", playerScore, "computer score:", computerScore, "ties:", tieCount);
+
+        if (playerScore > computerScore){
+            console.log("You win the series!")
+        }
+        else if (computerScore > playerScore){
+            console.log("The computer beat you")
+        }
+        else {console.log("error")};
+
+    }
+
+
+
+    
+
+
+    </script>
+
+
+
+</body>
+</html>
