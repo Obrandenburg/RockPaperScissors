@@ -7,95 +7,153 @@
 </head>
 <body>
 
+    
+        <button class= 'btn' id ="rock">Rock</button>
+
+        <button class = 'btn' id ="paper">Paper</button>
+
+        <button class = 'btn' id ="scissors">Scissors</button>
+
+        <div class="container">
+            <p>Round Result</p>
+            <div class="roundWinner"></div>
+            <p>Your Score</p>
+            <div class="myScore">0</div>
+            <p>Computer Score</p>
+            <div class="compScore">0</div>
+            <p>Number of ties</p>
+            <div class="ties">0</div>
+            <p>Best of 5 Winner</p>
+            <div class="winner"> </div>
+        </div>
+    
+
     <script>
-    getComputerChoice = function (){
-        const choices = ["rock", "paper", "scissors"];
-        const pick = Math.floor(Math.random() * choices.length);
-        return(pick, choices[pick]);
-    }
-
-  
-
-    playGame = function() {
-
-        let userSelection = prompt("Rock, paper, or scissors?");
-        const playerSelection = userSelection.toLowerCase();
-        const computerSelection = getComputerChoice();
-
-        if (computerSelection == "rock" && playerSelection == "rock") {
-            return "Tie, try again";
-        }
-        else if (computerSelection == "rock" && playerSelection =="paper") {
-            return "You win!";
-        }
-        else if (computerSelection == "rock" && playerSelection == "scissors") {
-            return "Computer wins";
-        }
-        else if (computerSelection == "paper" && playerSelection == "rock"){
-           return "Computer wins";
-        }
-        else if (computerSelection == "paper" && playerSelection == "paper"){
-            return "Tie, try again";
-        }
-        else if (computerSelection == "paper" && playerSelection == "scissors"){
-            return "You win!";
-        }
-        else if  (computerSelection == "scissors" && playerSelection == "rock"){
-            return "You win!";
-        }
-        else if (computerSelection == "scissors" && playerSelection == "paper"){
-            return "Computer wins";
-        }
-        else if (computerSelection =="scissors" && playerSelection == "scissors"){
-            return "Tie, try again"
-        }
-        else console.log("error");
-
-    }
-
-    game = function () {
-        let playerScore = 0;
-        let computerScore = 0;
-        let tieCount = 0;
-
-        
-        i = 0
-        do {
-            const winner = playGame();
-
-            if (winner == "Computer wins") {
-                (computerScore ++);
-            }
-            else if (winner == "You win!"){
-                (playerScore ++);
-            }
-            else if (winner == "Tie, try again") {
-                (tieCount ++);
-            }
-            else {console.log("error")};
-
-            i++;
-        } 
-        while (i < 5);
-
-        console.log("your score:", playerScore, "computer score:", computerScore, "ties:", tieCount);
-
-        if (playerScore > computerScore){
-            console.log("You win the series!")
-        }
-        else if (computerScore > playerScore){
-            console.log("The computer beat you")
-        }
-        else {console.log("error")};
-
-    }
-
-
+    
 
     
 
+    function getComputerChoice(){
+        const choices = ["rock", "paper", "scissors"];
+        const pick = Math.floor(Math.random() * choices.length);
+        return (pick, choices[pick]);
+    }
+  
+
+    const roundWinner = document.querySelector('.roundWinner');
+    const myScore = document.querySelector('.myScore');
+    const compScore = document.querySelector('.compScore');
+    const ties = document.querySelector('.ties');
+    const bestFive = document.querySelector('.winner');
+    const buttons = document.querySelector('.btn');
+    i = 0;
+    let playerScore = 0;
+    let computerScore = 0;
+    let tieCount = 0;
+
+    function bestOfFive (i){
+        while (i>4){ 
+
+            if (computerScore > playerScore){
+                bestFive.textContent = "Sorry, the computer wins. Refresh the page to play again";
+                let playerScore = 0;
+                let computerScore = 0;
+                let tieCount = 0;
+                let i = 0;
+                break;
+            }
+            else if (playerScore > computerScore){
+                bestFive.textContent = "Congrats, you win! Refresh the page to play again";
+                let playerScore = 0;
+                let computerScore = 0;
+                let tieCount = 0;
+                let i = 0;
+                break;
+            }
+            else if ( playerScore == computerScore){
+                bestFive.textContent = "You tied! Refresh the page to play again";
+                let playerScore = 0;
+                let computerScore = 0;
+                let tieCount = 0;
+                let i = 0;
+                break;
+            }
+            else {
+                break;
+            }
+        };
+
+    };
+    
+    
+   function playGame(e) {
+        let computerSelection = getComputerChoice();
+        let playerSelection = (e.target.id);
+        
+        
+        if (computerSelection == "rock" && playerSelection == "rock") {
+            roundWinner.textContent =  "Tie, try again";
+        }
+        else if (computerSelection == "rock" && playerSelection =="paper") {
+            roundWinner.textContent = "You win!";
+        }
+        else if (computerSelection == "rock" && playerSelection == "scissors") {
+            roundWinner.textContent = "Computer wins";
+        }
+        else if (computerSelection == "paper" && playerSelection == "rock"){
+            roundWinner.textContent = "Computer wins";
+        }
+        else if (computerSelection == "paper" && playerSelection == "paper"){
+            roundWinner.textContent = "Tie, try again";
+        }
+        else if (computerSelection == "paper" && playerSelection == "scissors"){
+            roundWinner.textContent = "You win!";
+        }
+        else if  (computerSelection == "scissors" && playerSelection == "rock"){
+            roundWinner.textContent = "You win!";
+        }
+        else if (computerSelection == "scissors" && playerSelection == "paper"){
+            roundWinner.textContent = "Computer wins";
+        }
+        else if (computerSelection =="scissors" && playerSelection == "scissors"){
+            roundWinner.textContent = "Tie, try again";
+        }
+        else console.log("error");
+
+
+        const winner = roundWinner.innerHTML;
+
+            
+        if (winner == "Computer wins") {
+                (compScore.textContent = ++computerScore);
+            }
+        else if (winner == "You win!"){
+                (myScore.textContent =  ++playerScore );
+            }
+        else if (winner == "Tie, try again") {
+                (ties.textContent = ++tieCount);
+            }
+        else {console.log("error")};
+            
+            
+        ++i;
+        bestOfFive(i);    
+            
+        }; 
+
+
+    let btns = document.querySelectorAll('.btn')
+    btns.forEach (btn => {btn.addEventListener('click', (playGame))
+    });
+    
+
+
+
+
 
     </script>
+
+
 
 
 
